@@ -46,11 +46,7 @@ def recomendar_juegos(categoria, plataforma):
             nombre, imagen = linea.split("|")
             nombre = nombre.replace("_", " ").title()
 
-            juegos.append({
-                "nombre": nombre,
-                "imagen": imagen
-            })
-
+            juegos.append({"nombre": nombre, "imagen": imagen})
     return juegos
 
 # PAGINA
