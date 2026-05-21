@@ -1,268 +1,158 @@
 <!DOCTYPE html>
-<html>
-
+<html lang="es">
 <head>
-
-    <title>
-        Prolog - Proyecto Final
-    </title>
-
-    <style>
-
-        body{
-
-            background: #181818;
-            color: white;
-            font-family: Arial;
-            margin: 0;
-            padding: 0;
-        }
-
-        /* HEADER */
-        header{
-            background: #111827;
-            padding: 20px;
-            text-align: center;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.5);
-        }
-
-        header h1{
-            color: #3b82f6;
-            margin: 0;
-        }
-
-        /* CONTENEDOR */
-        .contenedor{
-            width: 90%;
-            margin: auto;
-            text-align: center;
-            padding-top: 40px;
-            min-height: 80vh;
-        }
-
-        /* INSTRUCCIONES */
-        .instrucciones{
-            background: #222;
-            padding: 20px;
-            border-radius: 15px;
-            margin-bottom: 40px;
-            text-align: left;
-        }
-
-        .instrucciones h2{
-            color: #3b82f6;
-        }
-
-        .instrucciones ul{
-            line-height: 1.8;
-        }
-
-
-        /* FORMULARIO */
-        form{
-            margin-bottom: 50px;
-        }
-
-        input{
-            width: 350px;
-            padding: 12px;
-            border-radius: 10px;
-            border: none;
-            margin-right: 10px;
-        }
-
-        select{
-            padding: 12px;
-            border-radius: 10px;
-            border: none;
-            margin-right: 10px;
-        }
-
-        button{
-            padding: 12px 20px;
-            border: none;
-            border-radius: 10px;
-            background: #3b82f6;
-            color: white;
-            cursor: pointer;
-            font-weight: bold;
-        }
-
-        button:hover{
-            background: #2563eb;
-        }
-
-        /* GRID */
-        .grid{
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 30px;
-            margin-top: 40px;
-        }
-
-        /* CARD */
-        .card{
-            background: #2a2a2a;
-            border-radius: 20px;
-            padding: 20px;
-            transition: 0.3s;
-            width: 320px;
-        }
-
-        .card:hover{
-            transform: scale(1.03);
-        }
-
-        .card img{
-            width: 100%;
-            height: 420px;
-            object-fit: cover;
-            border-radius: 15px;
-        }
-
-        .card h2{
-            margin-top: 15px;
-            color: #3b82f6;
-        }
-
-
-        /* FOOTER */
-        footer{
-            background: #111827;
-            text-align: center;
-            padding: 20px;
-            margin-top: 50px;
-            color: #aaa;
-        }
-
-    </style>
-
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Games Finder — Proyecto Prolog</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
 </head>
-
 <body>
-    <header>
+
+  <!-- HEADER -->
+  <header>
+    <div class="header-content">
+      <div class="logo">
+        <span class="logo-icon">GF</span>
         <h1>Games Finder</h1>
-    </header>
+      </div>
+      <span class="header-subtitle">Busca y descubre tu pr&oacute;ximo juego</span>
+    </div>
+  </header>
 
-    <!-- CONTENIDO -->
-    <div class="contenedor">
+  <!-- MAIN -->
+  <main class="container">
 
-        <!-- INSTRUCCIONES -->
-        <div class="instrucciones">
-            <h2>
-                ¿Cómo se usa?
-            </h2>
+    <!-- HERO -->
+    <section class="hero">
+      <h2>¿Qu&eacute; juego buscas?</h2>
+      <p>Describe el tipo de juego que te gusta y te recomendaremos los mejores t&iacute;tulos para tu plataforma.</p>
+    </section>
 
-            <ul>
-                <li>Escribe el tipo de juego que deseas. Por ejemplo usa palabras: terror, futbol, carreras, retro, souls, etc. </li>
-                <li>Selecciona una plataforma.</li>
-                <li>Presiona el botón Buscar.</li>
-            </ul>
-
-        </div>
-
-        <!-- FORMULARIO -->
-        <form method="POST">
+    <!-- SEARCH FORM -->
+    <section class="search-section">
+      <form method="POST" id="searchForm">
+        <div class="form-row">
+          <div class="input-wrapper">
+            <svg class="icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="11" cy="11" r="8"/>
+              <line x1="21" y1="21" x2="16.65" y2="16.65"/>
+            </svg>
             <input
-                type="text"
-                name="texto"
-                value="{{ texto }}"
-                placeholder="Ejemplo: Quiero juegos de terror"
-                required
+              type="text"
+              name="texto"
+              value="{{ texto }}"
+              placeholder="Ej: Quiero juegos de terror, carreras, arcade..."
+              required
             >
+          </div>
 
+          <div class="select-wrapper">
             <select name="plataforma">
-                <option value="ps2"
-                    {% if plataforma == "ps2" %}selected{% endif %}>
-                    PS2
-                </option>
-
-                <option value="ps3"
-                    {% if plataforma == "ps3" %}selected{% endif %}>
-                    PS3
-                </option>
-
-                <option value="ps4"
-                    {% if plataforma == "ps4" %}selected{% endif %}>
-                    PS4
-                </option>
-
-                <option value="ps5"
-                    {% if plataforma == "ps5" %}selected{% endif %}>
-                    PS5
-                </option>
-
-                <option value="xbox360"
-                    {% if plataforma == "xbox360" %}selected{% endif %}>
-                    XBOX 360
-                </option>
-
-                <option value="xboxone"
-                    {% if plataforma == "xboxone" %}selected{% endif %}>
-                    XBOX ONE
-                </option>
-
-                <option value="xboxseries"
-                    {% if plataforma == "xboxseries" %}selected{% endif %}>
-                    XBOX SERIES
-                </option>
-
-                <option value="pc"
-                    {% if plataforma == "pc" %}selected{% endif %}>
-                    PC
-                </option>
-
-                <option value="switch"
-                    {% if plataforma == "switch" %}selected{% endif %}>
-                    Nintendo Switch
-                </option>
-
-                <option value="nes"
-                    {% if plataforma == "nes" %}selected{% endif %}>
-                    NES
-                </option>
-
-                <option value="gamecube"
-                    {% if plataforma == "gamecube" %}selected{% endif %}>
-                    GameCube
-                </option>
-
-                <option value="gameboy"
-                    {% if plataforma == "gameboy" %}selected{% endif %}>
-                    Game Boy
-                </option>
-
-                <option value="arcade"
-                    {% if plataforma == "arcade" %}selected{% endif %}>
-                    Arcade
-                </option>
-
+              <option value="ps2"        {% if plataforma == "ps2" %}selected{% endif %}>PS2</option>
+              <option value="ps3"        {% if plataforma == "ps3" %}selected{% endif %}>PS3</option>
+              <option value="ps4"        {% if plataforma == "ps4" %}selected{% endif %}>PS4</option>
+              <option value="ps5"        {% if plataforma == "ps5" %}selected{% endif %}>PS5</option>
+              <option value="xbox360"    {% if plataforma == "xbox360" %}selected{% endif %}>XBOX 360</option>
+              <option value="xboxone"    {% if plataforma == "xboxone" %}selected{% endif %}>XBOX ONE</option>
+              <option value="xboxseries" {% if plataforma == "xboxseries" %}selected{% endif %}>XBOX SERIES</option>
+              <option value="pc"         {% if plataforma == "pc" %}selected{% endif %}>PC</option>
+              <option value="switch"     {% if plataforma == "switch" %}selected{% endif %}>Nintendo Switch</option>
+              <option value="nes"        {% if plataforma == "nes" %}selected{% endif %}>NES</option>
+              <option value="gamecube"   {% if plataforma == "gamecube" %}selected{% endif %}>GameCube</option>
+              <option value="gameboy"    {% if plataforma == "gameboy" %}selected{% endif %}>Game Boy</option>
+              <option value="arcade"     {% if plataforma == "arcade" %}selected{% endif %}>Arcade</option>
             </select>
+          </div>
 
-            <button type="submit">Buscar</button>
-        </form>
-
-        <!-- RESULTADOS -->
-        <div class="grid">
-            {% for juego in juegos %}
-
-            <div class="card">
-                <img src="{{ juego.imagen }}">
-
-                <h2> {{ juego.nombre }}</h2>
-            </div>
-
-            {% endfor %}
-
+          <button type="submit" class="btn-search" id="searchBtn">
+            <span class="btn-text">Buscar</span>
+            <span class="spinner"></span>
+          </button>
         </div>
+      </form>
+    </section>
 
+    <!-- RESULTS -->
+    {% if categoria %}
+    <div class="result-info">
+      <span class="badge badge-category">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M4 4h16v4H4z"/>
+          <path d="M4 4v16a2 2 0 002 2h12a2 2 0 002-2v-4"/>
+          <path d="M4 12h16"/>
+        </svg>
+        Categor&iacute;a: {{ categoria }}
+      </span>
+      <span class="badge badge-count">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="3" y="3" width="18" height="18" rx="2"/>
+          <path d="M3 9h18"/>
+          <path d="M9 21V9"/>
+        </svg>
+        {{ juegos|length }} juego{% if juegos|length != 1 %}s{% endif %} encontrado{% if juegos|length != 1 %}s{% endif %}
+      </span>
+    </div>
+    {% endif %}
+
+    <div class="grid" id="resultsGrid">
+      {% for juego in juegos %}
+      <div class="card">
+        <div class="card-image">
+          <img src="{{ juego.imagen }}" alt="{{ juego.nombre }}" loading="lazy">
+        </div>
+        <div class="card-body">
+          <h3>{{ juego.nombre }}</h3>
+        </div>
+      </div>
+      {% endfor %}
+
+      {% if request.method == "POST" and juegos|length == 0 %}
+      <div class="empty-state">
+        <div class="empty-state-icon">
+          <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="10"/>
+            <line x1="15" y1="9" x2="9" y2="15"/>
+            <line x1="9" y1="9" x2="15" y2="15"/>
+          </svg>
+        </div>
+        <h3>No se encontraron juegos</h3>
+        <p>Intenta con otra descripci&oacute;n o plataforma.</p>
+      </div>
+      {% endif %}
     </div>
 
-    <!-- FOOTER -->
-    <footer>
-        Proyecto Final — Prolog
-    </footer>
+  </main>
 
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-content">
+      <p>Proyecto Final &mdash; Prolog</p>
+      <p class="footer-names">
+        P&iacute;ndaro Heras Solorio &bull;
+        Jos&eacute; Luis Trujillo Huape &bull;
+        Sebastian Asis Sosa Santiago &bull;
+        Osvaldo Martinez Espinosa &bull;
+        Sarael Mayavi Ornelas Gonzales
+      </p>
+      <div class="footer-tech">
+        <span>Flask</span>
+        <span>SWI-Prolog</span>
+        <span>Common Lisp</span>
+      </div>
+      <p class="footer-copy">&copy; 2026</p>
+    </div>
+  </footer>
+
+  <!-- SCROLL TO TOP -->
+  <button class="btn-scroll-top" id="scrollTop" aria-label="Volver arriba">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+      <polyline points="18 15 12 9 6 15"/>
+    </svg>
+  </button>
+
+  <script src="{{ url_for('static', filename='js/main.js') }}"></script>
 </body>
 </html>
