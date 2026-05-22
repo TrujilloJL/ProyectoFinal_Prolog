@@ -54,6 +54,9 @@ def recomendar_juegos(categoria, plataforma):
 def inicio():
 
     juegos = []
+    texto = ""
+    plataforma = ""
+    categoria = ""
 
     if request.method == "POST":
         texto = request.form["texto"]
@@ -64,8 +67,9 @@ def inicio():
     return render_template(
         "index.html",
         juegos=juegos,
-        texto=texto if request.method == "POST" else "",
-        plataforma=plataforma if request.method == "POST" else ""
+        texto=texto,
+        plataforma=plataforma,
+        categoria=categoria
     )
 
 
